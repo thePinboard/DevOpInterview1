@@ -13,20 +13,20 @@ echo "=============================================="
 # ── Challenge 1: Hidden File ──
 echo "[1] Hidden File..."
 F=$(cat "$CTF_DIR/.hidden_flag" 2>/dev/null | grep -o 'CTF{[^}]*}' | head -1)
-[ -n "$F" ] && echo "    $F" && FLAGS+=("$F") || echo "    ❌ Nicht gefunden"
+[ -n "$F" ] && echo "    $F" && FLAGS+=("$F") || echo "    Nicht gefunden"
 
 # ── Challenge 2: Secret File ──
 echo "[2] Secret File..."
 SECRET=$(find /home/ctf_user -type f -iname "*secret*" 2>/dev/null | head -1)
 F=$(cat "$SECRET" 2>/dev/null | grep -o 'CTF{[^}]*}' | head -1)
-[ -n "$F" ] && echo "    $F" && FLAGS+=("$F") || echo "    ❌ Nicht gefunden"
+[ -n "$F" ] && echo "    $F" && FLAGS+=("$F") || echo "    Nicht gefunden"
 
 # ── Challenge 3: Largest Log ──
 echo "[3] Largest Log..."
 LARGE_LOG=$(find /var/log -type f -exec du -ah {} + 2>/dev/null | sort -rh | head -n1 | awk '{print $2}')
 F=$(grep -o 'CTF{[^}]*}' "$LARGE_LOG" 2>/dev/null | head -1)
 [ -z "$F" ] && F=$(grep -roa 'CTF{[^}]*}' /var/log 2>/dev/null | grep -o 'CTF{[^}]*}' | head -1)
-[ -n "$F" ] && echo "    $F" && FLAGS+=("$F") || echo "    ❌ Nicht gefunden"
+[ -n "$F" ] && echo "    $F" && FLAGS+=("$F") || echo "    Nicht gefunden"
 
 # ── Challenge 4: User Detective (erweiterter Fix) ──
 echo "[4] User Detective..."
@@ -61,13 +61,13 @@ if [ -z "$F" ]; then
         | head -1)
 fi
 
-[ -n "$F" ] && echo "     $F" && FLAGS+=("$F") || echo "    ❌ Nicht gefunden"
+[ -n "$F" ] && echo "     $F" && FLAGS+=("$F") || echo "    Nicht gefunden"
 
 # ── Challenge 5: Permissive File ──
 echo "[5] Permissive File..."
 PERM_FILE=$(find /opt -type f -perm -o+rwx 2>/dev/null | head -1)
 F=$(cat "$PERM_FILE" 2>/dev/null | grep -o 'CTF{[^}]*}' | head -1)
-[ -n "$F" ] && echo "     $F" && FLAGS+=("$F") || echo "    ❌ Nicht gefunden"
+[ -n "$F" ] && echo "     $F" && FLAGS+=("$F") || echo "    Nicht gefunden"
 
 # ── Challenge 6: Hidden Service ──
 echo "[6] Hidden Service..."
@@ -138,7 +138,7 @@ rm -rf "$TMPDIR"
 echo "[16] Symlink..."
 TARGET=$(readlink -f "$CTF_DIR/follow_me" 2>/dev/null)
 F=$(cat "$TARGET" 2>/dev/null | grep -o 'CTF{[^}]*}' | head -1)
-[ -n "$F" ] && echo "     $F" && FLAGS+=("$F") || echo "    ❌ Nicht gefunden"
+[ -n "$F" ] && echo "     $F" && FLAGS+=("$F") || echo "    Nicht gefunden"
 
 # ── Challenge 17: History Mystery ──
 echo "[17] History Mystery..."
